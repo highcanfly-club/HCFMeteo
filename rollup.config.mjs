@@ -6,6 +6,7 @@ import processScss from "rollup-plugin-sass"
 import tailwindcss from "tailwindcss"
 import autoprefixer from "autoprefixer";
 import json from "@rollup/plugin-json"
+import images from "@rollup/plugin-image"
 import fs from 'fs'
 
 fs.rmSync('dist', { recursive: true, force: true });
@@ -33,6 +34,7 @@ const config = [
         extensions: [".vue", ".ts"],
       }),
       json(),
+      images(),
       vue(vuePluginConfig),
       postcss({ extract: true, process: processScss}),
       typescript({useTsconfigDeclarationDir:true},

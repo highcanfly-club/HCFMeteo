@@ -175,7 +175,7 @@ import type { BaliseData } from "../../plugins/BaliseFFVLHelper"
 import { getBaliseData, baliseNull, getWindSector } from "../../plugins/BaliseFFVLHelper"
 import { weatherIsFlyable, weatherGetRain } from '../../plugins/highcanfly'
 import meteoFranceConf from "../../config/meteo-france-conf.json";
-import {$require} from '../utilities/viteHelper.js'
+import {$require, getIcon} from '../utilities/moduleHelper.js'
 
 const icons_base = "@/assets/forecast/";
 // const icons_base =  "https://meteofrance.com/modules/custom/mf_tools_common_theme_public/svg/weather/";
@@ -312,14 +312,14 @@ function getWeather(weather: Weather12HOrWeather | Weather12HOrWeatherLong) {
       : {
         desc: weather.desc,
         icon: weather.icon,
-        url: $require(`${icons_base}${weather.icon}.svg`),
+        url:  getIcon(weather.icon),//$require(`${icons_base}${weather.icon}.svg`),
       };
   return wt;
 }
 
 function getWindImg(direction: number): { src: string; style: { transform: string } } {
   return {
-    src: $require(`${icons_base}wind.svg`),
+    src: getIcon('wind.svg'),//$require(`${icons_base}wind.svg`),
     style: { transform: `rotate(${direction + 180}deg)` },
   };
 }

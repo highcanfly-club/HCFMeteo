@@ -13,7 +13,7 @@
     "sourceMap": true,
     "jsx": "preserve",
     "baseUrl": ".",
-    "types": ["vue"]
+    "types": ["vue","node"]
   },
   "include": ["./**/*.ts", "./**/*.vue"],
   "exclude": ["node_modules"]

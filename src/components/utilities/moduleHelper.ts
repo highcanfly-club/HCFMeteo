@@ -1,3 +1,4 @@
+import {weatherIcons} from './weather-icons.js'
 /**
  * 
  * @param url absolute path of asset (must begin with @/assets/)
@@ -5,4 +6,8 @@
  */
 export function $require(url:string):string{
     return `../assets/${url.replace('@/assets/','../src/assets/')}`
+  }
+
+  export function getIcon(name:string){
+    return weatherIcons[name]
   }
