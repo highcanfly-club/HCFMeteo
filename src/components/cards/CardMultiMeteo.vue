@@ -15,16 +15,15 @@
 <script setup lang="ts">
 import {LazyObserver} from "@sctg/lazy-vue"
 import CardMeteo from "./CardMeteo.vue";
-import { ref } from "vue";
-import { useRoute } from 'vue-router';
+import { onMounted, ref } from "vue";
 import { FlyingPlace } from "../../types/GeoJSON";
 const props = defineProps<{
   places: GeoJSON.FlyingPlaceCollection,
-  key?: string
+  key: string,
+  icons_base: string,
 }>()
-const $route = useRoute()
-const slug = ref($route.params.slug ? $route.params.slug as string : null)
-const places = ref(getPlaces(slug.value));
+
+const places = ref(getPlaces(props.key));
 const card_meteo = ref<typeof CardMeteo[]>(null)
 
 function getPlaces(slug: string): GeoJSON.FlyingPlace[] | boolean {
@@ -48,18 +47,9 @@ function getPlaceWithSlug(slug: string) {
     return place.properties.slug === slug;
   });
 }
-
-function created() {
-  this.$watch(
-    () => $route.params,
-    () => {
-      slug.value = $route.params.slug ? $route.params.slug as string : null;
-      places.value = getPlaces(slug.value);
-    },
-    { immediate: true }
-  )
-}
-
+onMounted(()=>{
+  places.value = getPlaces(props.key);
+})
 </script>
 <style scoped lang="scss">
 @tailwind utilities;
