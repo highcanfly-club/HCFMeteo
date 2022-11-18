@@ -19,8 +19,7 @@ import { onMounted, ref } from "vue";
 import { FlyingPlace } from "../../types/GeoJSON";
 const props = defineProps<{
   places: GeoJSON.FlyingPlaceCollection,
-  key: string,
-  icons_base: string,
+  key: string
 }>()
 
 const places = ref(getPlaces(props.key));
