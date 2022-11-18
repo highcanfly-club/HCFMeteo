@@ -26,7 +26,6 @@ export interface Balise {
   unitVent?: string;
   vhf_enabled?: string;
   vitesseVentMax: string
-  vitesseVentMax: string;
   vitesseVentMin: string;
   vitesseVentMoy: string;
 }
