@@ -1,0 +1,40 @@
+{
+  "name": "@highcanfly-club/meteo",
+  "version": "1.0.0",
+  "description": "Our meteo kit",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "rollup": "rollup -c",
+    "build": "npm run rollup",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified yet\" && exit 0",
+    "get-meteo-icons": "node get-meteo-icons.mjs"
+  },
+  "author": "Ronan Le Meillat",
+  "license": "ISC",
+  "dependencies": {
+    "@sctg/lazy-vue": ">=1.0.3",
+    "vue-router": ">=4.1.6"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
+    "@rollup/plugin-json": "^5.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@vitejs/plugin-vue": "^3.2.0",
+    "autoprefixer": "^10.4.13",
+    "node-fetch": "^3.3.0",
+    "rollup": "^3.3.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-sass": "^1.12.16",
+    "rollup-plugin-typescript2": "^0.34.1",
+    "tailwindcss": "^3.2.4",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.3",
+    "vue": "^3.2.45"
+  },
+  "publishConfig": {
+    "@highcanfly-club:registry": "https://npm.pkg.github.com"
+  }
+}
