@@ -13,41 +13,64 @@
   </div>
 </template>
 <script setup lang="ts">
-import {LazyObserver} from "@sctg/lazy-vue"
+import { LazyObserver } from "@sctg/lazy-vue"
 import CardMeteo from "./CardMeteo.vue";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { FlyingPlace } from "../../types/GeoJSON";
 const props = defineProps<{
   places: GeoJSON.FlyingPlaceCollection,
-  key: string
+  slug: string
 }>()
 
-const places = ref(getPlaces(props.key));
+let changes = -1
+const places = ref(getPlaces(props.slug));
 const card_meteo = ref<typeof CardMeteo[]>(null)
 
-function getPlaces(slug: string): GeoJSON.FlyingPlace[] | boolean {
-  const _places = slug
-    ? getPlaceWithSlug(slug).length > 0
-      ? getPlaceWithSlug(slug) || slug === "all"
-      : props.places.features
-    : props.places.features.filter((place) => {
-      return place.properties.default === true;
-    });
-  return _places;
+/**
+* 
+* @param slug can be 'all' | 'default' | a valid place slug 
+*/
+function getPlaces(slug: string): GeoJSON.FlyingPlace[] {
+  let _places: GeoJSON.FlyingPlaceCollection
+  switch (slug) {
+    case 'all':
+      _places = props.places
+      break;
+    case 'default':
+      const _featuresDefault = props.places.features.filter((place) => {
+        return place.properties.default === true
+      });
+      _places = { type: 'FeatureCollection', features: _featuresDefault }
+      break;
+    default:
+      const _features = props.places.features.filter((place) => {
+        return place.properties.slug === slug;
+      });
+      _places = { type: 'FeatureCollection', features: _features }
+  }
+  return _places.features;
 }
+
 function onlazyMeteo(entry: IntersectionObserverEntry, unobserve: Function, id: number) {
   if (entry.isIntersecting && card_meteo.value !== undefined) {
     unobserve();
     card_meteo.value[id].getWeatherData()
   }
 }
-function getPlaceWithSlug(slug: string) {
-  return props.places.features.filter((place) => {
-    return place.properties.slug === slug;
-  });
-}
-onMounted(()=>{
-  places.value = getPlaces(props.key);
+
+watch(() => props.slug,
+  () => {
+    places.value = getPlaces(props.slug);
+    changes++;
+    if (changes && places.value.length === 1) {
+      console.log(`slug is now ${props.slug} refresh weather datas`)
+      card_meteo.value[0].getWeatherData()
+    }
+  },
+  { immediate: true })
+
+onMounted(() => {
+  places.value = getPlaces(props.slug);
 })
 </script>
 <style scoped lang="scss">
