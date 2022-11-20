@@ -5,7 +5,7 @@
         class="m-4 w-full sm:w-152 h-200 sm:min-w-152 overflow-y-auto">
         <div class="shadow-slate-500/50 min-w-0 break-words w-full shadow-lg rounded-xl bg-slate-50 p-2">
           <lazy-observer :id="index" @on-change="onlazyMeteo">
-            <card-meteo ref="card_meteo" :place="place as FlyingPlace" :lazy="true" :id="index" />
+            <card-meteo ref="card_meteo" :place="place as FlyingPlace" :lazy="true" :id="index" :lang="props.lang"/>
           </lazy-observer>
         </div>
       </div>
@@ -17,10 +17,14 @@ import { LazyObserver } from "@sctg/lazy-vue"
 import CardMeteo from "./CardMeteo.vue";
 import { onMounted, ref, watch } from "vue";
 import { FlyingPlace } from "../../types/GeoJSON";
-const props = defineProps<{
+import {locales} from "../../config/locales"
+const props = withDefaults(defineProps<{
   places: GeoJSON.FlyingPlaceCollection,
   slug: string
-}>()
+  lang?: locales
+}>(),{
+  lang: 'fr-FR'
+})
 
 let changes = -1
 const places = ref(getPlaces(props.slug));

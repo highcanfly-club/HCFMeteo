@@ -1,6 +1,6 @@
 {
   "name": "@highcanfly-club/meteo",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Our meteo kit",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -17,6 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@sctg/lazy-vue": ">=1.0.3",
+    "vue-i18n": "^9.2.2",
     "vue-router": ">=4.1.6"
   },
   "devDependencies": {

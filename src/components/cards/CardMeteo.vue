@@ -16,7 +16,7 @@
         <tr>
           <td colspan="11" class="text-center">
             <a href="https://meteo.fr/" target="_blank" rel="noopener">
-              Météo France AROME
+              {{ $t('meteo-france-arome') }}
               {{ forecastCollection.updated_on !== undefined ? getDate(forecastCollection.updated_on) : "…" }}
             </a>
           </td>
@@ -24,15 +24,15 @@
         <template v-if="(baliseFfvl !== undefined) && (baliseFfvl.balise !== undefined)">
           <tr>
             <td colspan="11" class="text-center text-blue-500">
-              Temps réel {{ baliseFfvl.baliseName === place.properties.name ? "" :
-                  "balise " + baliseFfvl.baliseName
+              {{ $t('temps-reel') }} {{ baliseFfvl.baliseName === place.properties.name ? "" :
+                  `${$t('balise')} ` + baliseFfvl.baliseName
               }}
             </td>
           </tr>
           <tr>
             <td colspan="11" class="text-center text-blue-500">
-              Moy: <b>{{ baliseFfvl.balise.vitesseVentMoy }}km/h</b> - Max: {{ baliseFfvl.balise.vitesseVentMax }}km/h -
-              Min:
+              {{ $t('moy') }}: <b>{{ baliseFfvl.balise.vitesseVentMoy }}km/h</b> - Max: {{ baliseFfvl.balise.vitesseVentMax }}km/h -
+              {{ $t('min') }}:
               {{ baliseFfvl.balise.vitesseVentMin }}km/h - <b>{{
                   getWindSector(Number(baliseFfvl.balise.directVentInst), 'fr')
               }}</b> -
@@ -60,20 +60,20 @@
           </tr>
         </template>
         <tr>
-          <th scope="col" class="text-center">Jour</th>
-          <th scope="col">Heure</th>
-          <th scope="col">Temp</th>
-          <th scope="col" class="hidden md:inline-flex">Rosée</th>
-          <th scope="col">moy.</th>
-          <th scope="col" class="hidden md:inline-flex">raf.</th>
-          <th scope="col">Pluie</th>
-          <th scope="col" class="hidden md:inline-flex">Humidité</th>
+          <th scope="col" class="text-center">{{ $t('jour') }}</th>
+          <th scope="col">{{ $t('heure') }}</th>
+          <th scope="col">{{ $t('temp') }}</th>
+          <th scope="col" class="hidden md:inline-flex">{{ $t('rosee') }}</th>
+          <th scope="col">{{ $t('moy') }}.</th>
+          <th scope="col" class="hidden md:inline-flex">{{ $t('raf') }}</th>
+          <th scope="col">{{ $t('pluie') }}</th>
+          <th scope="col" class="hidden md:inline-flex">{{ $t('humidite') }}</th>
           <th scope="col">
-            <span class="hidden md:inline-flex">Pression</span>
-            <span class="md:hidden inline-flex">hPa</span>
+            <span class="hidden md:inline-flex">{{ $t('pression') }}</span>
+            <span class="md:hidden inline-flex">{{ $t('hpa') }}</span>
           </th>
-          <th scope="col">Tendance</th>
-          <th scope="col">dir.</th>
+          <th scope="col">{{ $t('tendance') }}</th>
+          <th scope="col">{{ $t('dir') }}</th>
         </tr>
       </thead>
       <tbody v-if="forecastCollection">
@@ -133,11 +133,11 @@
               <lazy-img class="mx-auto w-8 h-8" :src="getWeather(detail.weather).url"
                 :alt="getWeather(detail.weather).desc" />
               <pop-over-simple v-if="weatherDetailClicked == index" :text="getWeather(detail.weather).desc"
-                title="Tendance" :left="false" ref="weatherPop" />
+                :title="$t('tendance')" :left="false" ref="weatherPop" />
             </td>
             <td class="place-items-center relative" @click="showWindDetail(index)">
               <pop-over-simple v-if="windDetailClicked == index" :text="getWindAdequate(place.properties.fly)"
-                title="Vent admissible" :left="false" ref="windPop" />
+                :title="$t('vent-admissible')" :left="false" ref="windPop" />
               <svg :style="getWindImg(detail.wind.direction).style"
                 class="mx-auto w-7 h-7 fill-transparent stroke-red-400 stroke-2" :class="
   isDaylight(
@@ -176,7 +176,7 @@ import { getBaliseData, baliseNull, getWindSector } from "../../plugins/BaliseFF
 import { weatherIsFlyable, weatherGetRain } from '../../plugins/highcanfly'
 import meteoFranceConf from "../../config/meteo-france-conf.json";
 import {$require, getIcon} from '../utilities/moduleHelper.js'
-
+import {locales,messages} from "../../config/locales"
 const icons_base = "@/assets/forecast/";
 // const icons_base =  "https://meteofrance.com/modules/custom/mf_tools_common_theme_public/svg/weather/";
 const API_TOKEN = meteoFranceConf.api_key;
@@ -191,11 +191,10 @@ const props = withDefaults(defineProps<{
   id?: number,
   lazy?: boolean,
   place: GeoJSON.FlyingPlace,
-  lang?: string
+  lang?: locales
 }>(), {
-  id: 0,
   lazy: false,
-  lang: 'fr',
+  lang: 'fr-FR',
 })
 
 defineExpose({getWeatherData})
@@ -223,9 +222,9 @@ function isDaylight(daily_forecast: DailyForecast[], givendate: Date) {
 
 function getWindAdequate(flying: GeoJSON.FlyingPlaceProperties["fly"]) {
   const speed = `v ≤ ${Math.round(flying.wind.max_speed)} m/s `;
-  let sectors = "orientation ";
+  let sectors = $t('orientation')+" ";
   flying.sectors.forEach((sector, index) => {
-    sectors += `${index ? "et " : ""}de ${sector.min_angle}° à ${sector.max_angle}° `;
+    sectors += `${index ? $t('et')+" " : ""}${$t('de')} ${sector.min_angle}° ${$t('a')} ${sector.max_angle}° `;
   });
   return speed + sectors;
 }
@@ -260,8 +259,8 @@ function getEphemeride(daily_forecasts: DailyForecast[], givendate: number) {
     minute: "numeric",
   }).format(sun.sunset);
   return sun.sunrise && sun.sunset
-    ? `lever ${sunrisetext},<br/>coucher ${sunsettext}`
-    : "non calculé";
+    ? `${$t('lever')} ${sunrisetext},<br/>${$t('coucher')} ${sunsettext}`
+    : "$t('non-calcule')";
 }
 
 /* Sample use
@@ -296,7 +295,7 @@ function getWeatherData(place: GeoJSON.FlyingPlace = props.place) {
 }
 
 function getWeatherAtPlace(place: GeoJSON.FlyingPlace = props.place) {
-  const src = `https://webservice.meteofrance.com/forecast?token=${API_TOKEN}&lat=${place.geometry.coordinates[1]}&lon=${place.geometry.coordinates[0]}&lang=${props.lang}`;
+  const src = `https://webservice.meteofrance.com/forecast?token=${API_TOKEN}&lat=${place.geometry.coordinates[1]}&lon=${place.geometry.coordinates[0]}&lang=${props.lang.substring(0,2)}`;
   console.log(`Retrieve forecasts from ${src}`);
   fetch(src).then((result) => {
     result.json().then((_forecastCollection: ForecastCollection) => {
@@ -368,6 +367,9 @@ function getStartDay(dt: number, dt_prec = 0) {
   return ts;
 }
 
+function $t(message:string):string{
+  return messages[props.lang][message]
+}
 </script>
 <style scoped lang="scss">
 @tailwind utilities;
