@@ -1,6 +1,6 @@
 {
   "name": "@highcanfly-club/meteo",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Our meteo kit",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
     "prepublish": "npm run build",
     "test": "echo \"Error: no test specified yet\" && exit 0",
     "get-meteo-icons": "node get-meteo-icons.mjs",
-    "create-icons":"node --experimental-fetch --loader ts-node/esm iconArray.ts"
+    "create-icons": "node --experimental-fetch --loader ts-node/esm iconArray.ts"
   },
   "author": "Ronan Le Meillat",
   "license": "ISC",
@@ -29,6 +29,8 @@
     "autoprefixer": "^10.4.13",
     "node-fetch": "^3.3.0",
     "rollup": "^3.3.0",
+    "rollup-plugin-copy-assets": "^2.0.3",
+    "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-sass": "^1.12.16",
     "rollup-plugin-typescript2": "^0.34.1",

@@ -1,15 +1,16 @@
 import vue from "@vitejs/plugin-vue";
 import node from "@rollup/plugin-node-resolve";
 import typescript from "rollup-plugin-typescript2";
-import postcss from "rollup-plugin-postcss"
-import processScss from "rollup-plugin-sass"
-import tailwindcss from "tailwindcss"
+import postcss from "rollup-plugin-postcss";
+import processScss from "rollup-plugin-sass";
+import tailwindcss from "tailwindcss";
 import autoprefixer from "autoprefixer";
-import json from "@rollup/plugin-json"
-import images from "@rollup/plugin-image"
-import fs from 'fs'
+import json from "@rollup/plugin-json";
+import images from "@rollup/plugin-image";
+import copy from "rollup-plugin-copy-assets";
+import fs from "fs";
 
-fs.rmSync('dist', { recursive: true, force: true });
+fs.rmSync("dist", { recursive: true, force: true });
 
 const vuePluginConfig = {
   template: {
@@ -18,16 +19,16 @@ const vuePluginConfig = {
       whitespace: "condense",
     },
   },
-  style:{
-    postcssPlugins:[tailwindcss,autoprefixer],
-  }
+  style: {
+    postcssPlugins: [tailwindcss, autoprefixer],
+  },
 };
 
 const config = [
   {
     input: "./index.ts",
     external: ["vue"],
-    output: { format: "es", file: "dist/index.js",sourcemap: true, },
+    output: { format: "es", file: "dist/index.js", sourcemap: true },
     plugins: [
       node({
         rootDir: ".",
@@ -36,9 +37,15 @@ const config = [
       json(),
       images(),
       vue(vuePluginConfig),
-      postcss({ extract: true, process: processScss}),
-      typescript({useTsconfigDeclarationDir:true},
+      postcss({ extract: true, process: processScss }),
+      typescript(
+        { useTsconfigDeclarationDir: true },
       ),
+      copy({
+        assets: [
+          "./src/types/GeoJSON.d.ts",
+        ],
+      })
     ],
   },
 ];
