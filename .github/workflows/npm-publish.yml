@@ -32,5 +32,6 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+      - run: sed -i -e 's/@highcanfly-club\/meteo/@highcanfly\/meteo/' -e 's/"@highcanfly-club:registry.*,$/"access":"public",/' package.json
       - run: npm i
       - run: npm publish
