@@ -6,7 +6,8 @@ name: NPM Package to Github registry
 on:
   release:
     types: [created]
-
+env: 
+  API_KEY: ${{secrets.API_KEY}}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,7 +32,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
+      - run: npm i
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
