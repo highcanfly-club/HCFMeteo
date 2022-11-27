@@ -6,6 +6,9 @@ name: Publish to NPMJS
 on:
   release:
     types: [created]
+env:
+  API_KEY: ${{secrets.API_KEY}}
+  NODE_AUTH_TOKEN: ${{secrets.NPMJS_TOKEN}}
 
 jobs:
   build:
@@ -17,11 +20,7 @@ jobs:
           node-version: 16
       - run: sed -i -e 's/@highcanfly-club\/meteo/@highcanfly\/meteo/' -e 's/"@highcanfly-club:registry.*,$/"access":"public",/' package.json
       - run: npm i
-        env:
-          API_KEY: ${{secrets.API_KEY}}
       - run: npm run build
-        env:
-          API_KEY: ${{secrets.API_KEY}}
       - run: npm test
 
   publish-npm:
@@ -34,9 +33,6 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm i
-        env:
-          API_KEY: ${{secrets.API_KEY}}
       - run: npm publish
         env:
-          API_KEY: ${{secrets.API_KEY}}
           NODE_AUTH_TOKEN: ${{secrets.NPMJS_TOKEN}}
