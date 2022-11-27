@@ -14,7 +14,7 @@ npm i --save @highcanfly/meteo
 </template>
 <script setup lang="ts">
 import {CardMultiMeteo,GeoJSON} from "@highcanfly/meteo";
-import "@highcanfly-club/meteo/dist/index.css"
+import "@highcanfly/meteo/dist/index.css"
 import _places from "@/config/places.json";
 const placesJson = _places as unknown as GeoJSON.FlyingPlaceCollection
 </script>
