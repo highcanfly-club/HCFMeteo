@@ -1,15 +1,20 @@
 {
   "name": "@highcanfly-club/meteo",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Our meteo kit",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/highcanfly-club/HCFMeteo.git"
+  },
   "scripts": {
     "rollup": "rollup -c",
     "build": "npm run rollup",
     "prepublish": "npm run build",
     "test": "echo \"Error: no test specified yet\" && exit 0",
+    "metrics": "node --experimental-fetch --loader ts-node/esm ./metric.ts",
     "get-meteo-icons": "node get-meteo-icons.mjs",
     "create-icons": "node --experimental-fetch --loader ts-node/esm iconArray.ts"
   },
@@ -25,11 +30,12 @@
     "@rollup/plugin-image": "^3.0.1",
     "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@sctg/code-stats": "^0.1.4",
     "@types/node": "^18.11.9",
     "@vitejs/plugin-vue": "^3.2.0",
     "autoprefixer": "^10.4.13",
     "node-fetch": "^3.3.0",
-    "rollup": "^3.3.0",
+    "rollup": "^3.5.0",
     "rollup-plugin-copy-assets": "^2.0.3",
     "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-postcss": "^4.0.2",
