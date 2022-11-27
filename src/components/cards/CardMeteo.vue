@@ -174,7 +174,7 @@ import type { ForecastCollection, Forecast, DailyForecast, Weather12HOrWeather, 
 import type { BaliseData } from "../../plugins/BaliseFFVLHelper"
 import { getBaliseData, baliseNull, getWindSector } from "../../plugins/BaliseFFVLHelper"
 import { weatherIsFlyable, weatherGetRain } from '../../plugins/highcanfly'
-import meteoFranceConf from "../../config/meteo-france-conf.json";
+import meteoFranceConf from "../../config/meteo-france-conf.json"
 import {$require, getIcon} from '../utilities/moduleHelper.js'
 import {locales,messages} from "../../config/locales"
 const icons_base = "@/assets/forecast/";

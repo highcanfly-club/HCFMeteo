@@ -105,4 +105,4 @@ dist
 
 *.d.ts
 
-.DS_Store
+.DS_Storesrc/meteo-france-conf.json

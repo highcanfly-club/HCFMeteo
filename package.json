@@ -11,7 +11,8 @@
   },
   "scripts": {
     "rollup": "rollup -c",
-    "build": "npm run rollup",
+    "prepare-env":"node --loader ts-node/esm ./prepare-env.ts",
+    "build": "npm run prepare-env && npm run rollup",
     "prepublish": "npm run build",
     "test": "echo \"Error: no test specified yet\" && exit 0",
     "metrics": "node --experimental-fetch --loader ts-node/esm ./metric.ts",
@@ -48,6 +49,7 @@
     "vue": "^3.2.45"
   },
   "publishConfig": {
-    "@highcanfly-club:registry": "https://npm.pkg.github.com"
+    "@highcanfly-club:registry": "https://npm.pkg.github.com",
+    "tag": "latest"
   }
 }

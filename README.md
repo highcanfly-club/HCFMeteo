@@ -1,11 +1,19 @@
-# HCFMeteo
+# HCFMeteo for Vue3
+## Demo
+This is the meteo we use in our website.  
+https://highcanfly.club/meteo  
+Browse https://github.com/highcanfly-club/vue-highcanfly/blob/main/src/views/ViewMeteo.vue for seeing the current use.  
+
 ## Sample use
+```sh
+npm i --save @highcanfly/meteo
+```
 ```vue
 <template>
-    <card-multi-meteo slug="" :places="placesJson" />
+    <card-multi-meteo class="flex flex-col lg:flex-row" :places="placesJson" slug="default" :lang="locale"/>
 </template>
 <script setup lang="ts">
-import {CardMultiMeteo,GeoJSON} from "@highcanfly-club/meteo";
+import {CardMultiMeteo,GeoJSON} from "@highcanfly/meteo";
 import "@highcanfly-club/meteo/dist/index.css"
 import _places from "@/config/places.json";
 const placesJson = _places as unknown as GeoJSON.FlyingPlaceCollection
