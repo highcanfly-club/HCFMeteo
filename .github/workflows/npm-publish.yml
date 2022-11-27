@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: sed -i '' -e 's/@highcanfly-club\/meteo/@highcanfly\/meteo/' -e 's/"@highcanfly-club:registry.*,$/"access":"public",/' package.json
+      - run: sed -i -e 's/@highcanfly-club\/meteo/@highcanfly\/meteo/' -e 's/"@highcanfly-club:registry.*,$/"access":"public",/' package.json
       - run: npm i
       - run: npm run build
       - run: npm test
