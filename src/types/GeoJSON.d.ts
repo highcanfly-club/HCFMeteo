@@ -187,6 +187,7 @@ export interface FlyingWind {
 export interface FlyingPlaceProperties extends Record {
     name: string;
     slug: string;
+    displayName?: string;
     default?: boolean;
     idBalise?: number; /** balise number from http://balisemeteo.com/ */
     idBaliseAlt?: number; /** in case of failure of idBalise, another balise around */

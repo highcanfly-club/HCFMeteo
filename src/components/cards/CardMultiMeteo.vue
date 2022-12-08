@@ -5,7 +5,7 @@
         class="m-4 w-full sm:w-152 h-200 sm:min-w-152 overflow-y-auto">
         <div class="shadow-slate-500/50 min-w-0 break-words w-full shadow-lg rounded-xl bg-slate-50 p-2">
           <lazy-observer :id="index" @on-change="onlazyMeteo">
-            <card-meteo ref="card_meteo" :place="place as FlyingPlace" :lazy="true" :id="index" :lang="props.lang"/>
+            <card-meteo ref="card_meteo" :place="place as FlyingPlace" :lazy="true" :id="index" :lang="props.lang" :display-name="place.properties.displayName"/>
           </lazy-observer>
         </div>
       </div>
