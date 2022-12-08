@@ -3,7 +3,7 @@
     <table class="border-collapse table-auto w-full text-sm rounded-xl">
       <thead>
         <tr>
-          <td colspan="11" class="text-center">
+          <td v-if="displayName === undefined" colspan="11" class="text-center">
             {{
               place.properties ? place.properties.name : ''
             }}
@@ -11,6 +11,9 @@
                 forecastCollection.position !== undefined ? forecastCollection.position.name : "chargement"
             }}
             ({{ forecastCollection.position !== undefined ? forecastCollection.position.alti : "…" }}m)
+          </td>
+          <td v-else colspan="11" class="text-center">
+            {{ displayName }}
           </td>
         </tr>
         <tr>
@@ -191,7 +194,8 @@ const props = withDefaults(defineProps<{
   id?: number,
   lazy?: boolean,
   place: GeoJSON.FlyingPlace,
-  lang?: locales
+  lang?: locales,
+  displayName?: string,
 }>(), {
   lazy: false,
   lang: 'fr-FR',
