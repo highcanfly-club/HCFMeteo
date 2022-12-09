@@ -33,7 +33,7 @@
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@sctg/code-stats": "^0.1.4",
     "@types/node": "^18.11.11",
-    "@vitejs/plugin-vue": "^3.2.0",
+    "@vitejs/plugin-vue": "^4.0.0",
     "autoprefixer": "^10.4.13",
     "node-fetch": "^3.3.0",
     "rollup": "^3.7.0",
