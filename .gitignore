@@ -106,3 +106,6 @@ dist
 *.d.ts
 
 .DS_Storesrc/meteo-france-conf.json
+.DS_Store
+.gitignore
+src/config/meteo-france-conf.json
