@@ -225,7 +225,7 @@ function isDaylight(daily_forecast: DailyForecast[], givendate: Date) {
 }
 
 function getWindAdequate(flying: GeoJSON.FlyingPlaceProperties["fly"]) {
-  const speed = `v ≤ ${Math.round(flying.wind.max_speed)} m/s `;
+  const speed = `v ≤ ${Math.round(flying.wind.max_speed*3.6)} km/h `;
   let sectors = $t('orientation')+" ";
   flying.sectors.forEach((sector, index) => {
     sectors += `${index ? $t('et')+" " : ""}${$t('de')} ${sector.min_angle}° ${$t('a')} ${sector.max_angle}° `;
