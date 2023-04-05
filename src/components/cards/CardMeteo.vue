@@ -348,11 +348,11 @@ function getWindAdequate(
   const speed = `${Math.round(
     flying.wind.min_speed * 3.6
   )} ≤ ${currentWind} ≤ ${Math.round(flying.wind.max_speed * 3.6)} km/h `;
-  let sectors = `${$t("orientation")} ${currentOrientation} ∈ `;
+  let sectors = `${$t("orientation")} ${currentOrientation}° ∈ `;
   flying.sectors.forEach((sector, index) => {
-    sectors += `${index ? $t("et") + " " : ""}${$t("de")} ${
+    sectors += `${index ? $t("et") + " " : ""} [${
       sector.min_angle
-    }° ${$t("a")} ${sector.max_angle}° `;
+    }°, ${sector.max_angle}°] `;
   });
   return speed + sectors;
 }
