@@ -139,7 +139,7 @@
                 :title="$t('tendance')" :left="false" ref="weatherPop" />
             </td>
             <td class="place-items-center relative" @click="showWindDetail(index)">
-              <pop-over-simple v-if="windDetailClicked == index" :text="getWindAdequate(place.properties.fly)"
+              <pop-over-simple v-if="windDetailClicked == index" :text="getWindAdequate(place.properties.fly,detail.wind.gust !== 0 ? Math.round(detail.wind.gust * 3.6).toString() : 'v')"
                 :title="$t('vent-admissible')" :left="false" ref="windPop" />
               <svg :style="getWindImg(detail.wind.direction).style"
                 class="mx-auto w-7 h-7 fill-transparent stroke-red-400 stroke-2" :class="
@@ -224,8 +224,8 @@ function isDaylight(daily_forecast: DailyForecast[], givendate: Date) {
   return sun.sunrise < givendate && givendate < sun.sunset;
 }
 
-function getWindAdequate(flying: GeoJSON.FlyingPlaceProperties["fly"]) {
-  const speed = `v ≤ ${Math.round(flying.wind.max_speed*3.6)} km/h `;
+function getWindAdequate(flying: GeoJSON.FlyingPlaceProperties["fly"], currentWind: string = 'v') {
+  const speed = `${Math.round(flying.wind.min_speed*3.6)} ≤ ${currentWind} ≤ ${Math.round(flying.wind.max_speed*3.6)} km/h `;
   let sectors = $t('orientation')+" ";
   flying.sectors.forEach((sector, index) => {
     sectors += `${index ? $t('et')+" " : ""}${$t('de')} ${sector.min_angle}° ${$t('a')} ${sector.max_angle}° `;
